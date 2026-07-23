@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư Mời Lễ Tốt Nghiệp - Đại học Quy Nhơn</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #431407;
+            --accent: #d97706;
+            --gold: #f59e0b;
+            --gold-light: #fef3c7;
+            --bg-gradient: linear-gradient(135deg, #2d1b14 0%, #1a0f0b 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .scene {
+            width: 100%;
+            max-width: 520px;
+            height: 860px;
+            perspective: 2500px;
+        }
+
+        /* KHUNG THIỆP 3D */
+        .card-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .card-container.open {
+            transform: rotateY(-180deg);
+        }
+
+        /* BÌA THIỆP BÊN NGOÀI - ĐẶC SẮC CHỦ ĐỀ TỐT NGHIỆP */
+        .card-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(165deg, #1e110b 0%, #0d0604 100%);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 40px 30px;
+            z-index: 10;
+            transform-origin: left center;
+            backface-visibility: hidden;
+            border: 2px solid rgba(245, 158, 11, 0.4);
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng hoa văn nền mờ cho bìa */
+        .card-cover::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cover-badge-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .grad-cap-icon {
+            font-size: 16px;
+            color: #f59e0b;
+        }
+
+        .cover-title-group {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cover-title-group .sub-heading {
+            font-size: 12.5px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #d1d5db;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .cover-title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .cover-title-group h1 span {
+            color: #fbbf24;
+            font-style: italic;
+        }
+
+        .divider-line {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f59e0b, transparent);
+            margin: 0 auto;
+        }
+
+        .cover-quote {
+            font-size: 13px;
+            color: #9ca3af;
+            font-style: italic;
+            max-width: 320px;
+            line-height: 1.5;
+            margin-top: -10px;
+        }
+
+        .cover-qr-box {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            width: 170px;
+        }
+
+        .cover-qr-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            background: white;
+            padding: 5px;
+            display: block;
+        }
+
+        .cover-qr-box span {
+            font-size: 10.5px;
+            color: #9ca3af;
+            margin-top: 8px;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+
+        .open-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #1a0f0b;
+            border: none;
+            padding: 15px;
+            font-size: 14.5px;
+            font-weight: 800;
+            border-radius: 16px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            z-index: 20;
+            letter-spacing: 0.5px;
+        }
+
+        .open-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        /* NỘI DUNG BÊN TRONG THIỆP */
+        .card-inside {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #fffbf5;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            padding: 28px;
+            z-index: 5;
+            transform: rotateY(180deg);
+            backface-visibility: hidden;
+            overflow-y: auto;
+            border: 1px solid #fde68a;
+        }
+
+        .card-inside::-webkit-scrollbar {
+            width: 6px;
+        }
+        .card-inside::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 10px;
+        }
+
+        .back-nav {
+            margin-bottom: 14px;
+        }
+
+        .back-btn {
+            background: #fef3c7;
+            color: #b45309;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #fde68a;
+        }
+
+        .invitation-header {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .invitation-header span {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #78350f;
+            font-weight: 700;
+        }
+
+        .invitation-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #451a03;
+            margin-top: 4px;
+            font-weight: 700;
+        }
+
+        .guest-tag {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1px dashed #f59e0b;
+            padding: 14px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .guest-tag small {
+            font-size: 10.5px;
+            color: #b45309;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .guest-tag h3 {
+            font-size: 18px;
+            color: #451a03;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+
+        /* KHUNG ẢNH */
+        .photo-gallery-section {
+            margin-bottom: 16px;
+        }
+
+        .main-photo-card {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 2px solid #fff;
+            margin-bottom: 10px;
+            background: #000;
+            cursor: pointer;
+        }
+
+        .main-photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .main-photo-card::after {
+            content: "Nhấn để đổi ảnh mới";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .main-photo-card:hover::after {
+            opacity: 1;
+        }
+
+        .photo-actions-bar {
+            display: flex;
+            justify-content: center;
+        }
+
+        .photo-action-btn {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #b45309;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .photo-action-btn:hover {
+            background: #fef3c7;
+        }
+
+        #uploadInput {
+            display: none;
+        }
+
+        /* LỊCH & THỜI GIAN */
+        .event-box {
+            background: white;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 16px;
+            border: 1px solid #fef3c7;
+        }
+
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .calendar-nav button {
+            background: #fef3c7;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #b45309;
+            font-size: 12px;
+        }
+
+        .calendar-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #451a03;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .cal-head {
+            font-weight: 700;
+            color: #9ca3af;
+            padding-bottom: 6px;
+        }
+
+        .cal-date {
+            padding: 8px 0;
+            color: #1f2937;
+            border-radius: 8px;
+        }
+
+        .cal-date.active {
+            background: #f59e0b;
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);
+        }
+
+        /* CHI TIẾT ĐỊA ĐIỂM & ĐẾM NGƯỢC */
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .info-item {
+            background: white;
+            padding: 14px 16px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid #fef3c7;
+        }
+
+        .info-item i {
+            width: 36px;
+            height: 36px;
+            background: #fef3c7;
+            color: #d97706;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .info-text span {
+            font-size: 10px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: block;
+        }
+
+        .info-text p {
+            font-size: 12.5px;
+            color: #1f2937;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .countdown-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .cd-box {
+            background: white;
+            padding: 12px 6px;
+            border-radius: 14px;
+            border: 1px solid #fef3c7;
+        }
+
+        .cd-box b {
+            font-size: 18px;
+            color: #d97706;
+            display: block;
+        }
+
+        .cd-box span {
+            font-size: 9.5px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 2px;
+            display: block;
+        }
+
+        .map-link {
+            display: block;
+            text-align: center;
+            background: #fffbeb;
+            color: #b45309;
+            text-decoration: none;
+            padding: 13px;
+            border-radius: 14px;
+            font-size: 12.5px;
+            font-weight: 800;
+            border: 1px solid #fde68a;
+            margin-bottom: 16px;
+        }
+
+        /* SỔ LƯU BÚT */
+        .guestbook-section {
+            background: white;
+            border-radius: 18px;
+            padding: 18px;
+            border: 1px solid #fef3c7;
+            margin-bottom: 10px;
+        }
+
+        .gb-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #451a03;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gb-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .gb-form input, .gb-form textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 12px;
+            outline: none;
+            background: #fdfbf7;
+        }
+
+        .gb-form input:focus, .gb-form textarea:focus {
+            border-color: #f59e0b;
+        }
+
+        .gb-btn {
+            background: #451a03;
+            color: white;
+            border: none;
+            padding: 11px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .gb-list {
+            max-height: 160px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .gb-item {
+            background: #fffbeb;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #fef3c7;
+        }
+
+        .gb-item-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11.5px;
+            font-weight: 800;
+            color: #451a03;
+            margin-bottom: 3px;
+        }
+
+        .gb-item-header span:last-child {
+            font-size: 9.5px;
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        .gb-item p {
+            font-size: 11.5px;
+            color: #374151;
+        }
+
+        .empty-text {
+            text-align: center;
+            font-size: 11.5px;
+            color: #9ca3af;
+            font-style: italic;
+            padding: 12px 0;
+        }
+
+        #toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #451a03;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 14px;
+            border: 1px solid #f59e0b;
+            font-size: 12px;
+            z-index: 999;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+        }
+        #toast.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast">Đã thêm ảnh mới thành công!</div>
+
+    <div class="scene">
+        <div class="card-container" id="cardContainer">
+            
+            <!-- BÌA THIỆP ĐẶC SẮC CHỦ ĐỀ TỐT NGHIỆP -->
+            <div class="card-cover">
+                <div class="cover-badge-top">
+                    <i class="fa-solid fa-graduation-cap grad-cap-icon"></i>
+                    <span>Lễ Nhận Bằng Cử Nhân</span>
+                </div>
+                
+                <div class="cover-title-group">
+                    <p class="sub-heading">Trân Trọng Kính Mời</p>
+                    <h1>Hành Trình <span>Rực Rỡ</span><br>Tốt Nghiệp</h1>
+                    <div class="divider-line"></div>
+                </div>
+
+                <p class="cover-quote">"Đánh dấu cột mốc trưởng thành và khép lại thanh xuân rực rỡ tại mái trường Đại học Quy Nhơn."</p>
+
+                <div class="cover-qr-box">
+                    <img id="qrCodeImg" src="" alt="QR Code">
+                    <span>Quét mã QR để mở thiệp</span>
+                </div>
+                
+                <button class="open-btn" onclick="openCard()">Mở Thiệp Mời <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+
+            <!-- NỘI DUNG BÊN TRONG -->
+            <div class="card-inside">
+                
+                <div class="back-nav">
+                    <button class="back-btn" onclick="closeCard()"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+                </div>
+
+                <div class="invitation-header">
+                    <span>Thư mời trân trọng gửi đến</span>
+                    <h2 id="guestNameDisplay">Quý Khách</h2>
+                </div>
+
+                <div class="guest-tag">
+                    <small>Sự hiện diện của bạn là niềm vinh hạnh lớn cho tôi</small>
+                    <h3>Lễ Tốt Nghiệp Đại Học Quy Nhơn</h3>
+                </div>
+
+                <!-- KHUNG ẢNH (BẤM VÀO ĐỂ TẢI/ĐỔI ẢNH) -->
+                <div class="photo-gallery-section">
+                    <div class="main-photo-card" onclick="document.getElementById('uploadInput').click()">
+                        <img id="activePhoto" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Ảnh tốt nghiệp">
+                    </div>
+                    <div class="photo-actions-bar">
+                        <button class="photo-action-btn" onclick="nextPhoto()">
+                            <i class="fa-solid fa-rotate"></i> Chuyển ảnh khác (<span id="photoIndexText">1/3</span>)
+                        </button>
+                    </div>
+                    <input type="file" id="uploadInput" accept="image/*" onchange="uploadNewPhoto(event)">
+                </div>
+
+                <!-- LỊCH THÁNG -->
+                <div class="event-box">
+                    <div class="calendar-nav">
+                        <button onclick="changeMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <div class="calendar-title" id="calendarTitle">Tháng 8 - 2026</div>
+                        <button onclick="changeMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+
+                <!-- THÔNG TIN CHI TIẾT -->
+                <div class="info-list">
+                    <div class="info-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <div class="info-text">
+                            <span>Thời gian</span>
+                            <p>08:30 | Chủ Nhật, 15/08/2026</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div class="info-text">
+                            <span>Địa điểm</span>
+                            <p>Hội trường lớn, 170 An Dương Vương, TP. Quy Nhơn</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ĐẾM NGƯỢC -->
+                <div class="countdown-row">
+                    <div class="cd-box"><b id="days">30</b><span>Ngày</span></div>
+                    <div class="cd-box"><b id="hours">08</b><span>Giờ</span></div>
+                    <div class="cd-box"><b id="minutes">45</b><span>Phút</span></div>
+                    <div class="cd-box"><b id="seconds">12</b><span>Giây</span></div>
+                </div>
+
+                <a href="https://maps.google.com/?q=Đại+học+Quy+Nhơn" target="_blank" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i> Xem Chỉ Đường Google Maps
+                </a>
+
+                <!-- SỔ LƯU BÚT -->
+                <div class="guestbook-section">
+                    <div class="gb-title"><i class="fa-solid fa-pen-nib"></i> Sổ Lưu Bút</div>
+                    <div class="gb-form">
+                        <input type="text" id="wishName" placeholder="Tên của bạn...">
+                        <textarea id="wishContent" rows="3" placeholder="Nhập lời chúc tốt đẹp..."></textarea>
+                        <button class="gb-btn" onclick="addWish()">Gửi Lời Chúc</button>
+                    </div>
+                    <div class="gb-list" id="wishesList">
+                        <div class="empty-text" id="emptyText">Chưa có lời chúc nào được gửi.</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('guest');
+        if (guestName) {
+            document.getElementById('guestNameDisplay').innerText = decodeURIComponent(guestName.replace(/\+/g, ' '));
+        }
+
+        document.getElementById('qrCodeImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(window.location.href)}`;
+
+        function openCard() {
+            document.getElementById('cardContainer').classList.add('open');
+        }
+
+        function closeCard() {
+            document.getElementById('cardContainer').classList.remove('open');
+        }
+
+        let photoList = [
+            "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&w=800&q=80"
+        ];
+        let currentPhotoIndex = 0;
+
+        function updatePhotoDisplay() {
+            document.getElementById('activePhoto').src = photoList[currentPhotoIndex];
+            document.getElementById('photoIndexText').innerText = `${currentPhotoIndex + 1}/${photoList.length}`;
+        }
+
+        function nextPhoto() {
+            currentPhotoIndex = (currentPhotoIndex + 1) % photoList.length;
+            updatePhotoDisplay();
+        }
+
+        function uploadNewPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    photoList.push(e.target.result);
+                    currentPhotoIndex = photoList.length - 1;
+                    updatePhotoDisplay();
+                    showToast("Đã thêm ảnh mới thành công!");
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        let navDate = new Date(2026, 7, 1);
+        const targetDay = 15, targetMonth = 7, targetYear = 2026;
+
+        function renderCalendar() {
+            const year = navDate.getFullYear();
+            const month = navDate.getMonth();
+            const months = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+            document.getElementById('calendarTitle').innerText = `${months[month]} - ${year}`;
+
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = `
+                <div class="cal-head">T2</div><div class="cal-head">T3</div><div class="cal-head">T4</div>
+                <div class="cal-head">T5</div><div class="cal-head">T6</div><div class="cal-head">T7</div><div class="cal-head">CN</div>
+            `;
+
+            let firstDay = new Date(year, month, 1).getDay();
+            firstDay = firstDay === 0 ? 6 : firstDay - 1;
+            const totalDays = new Date(year, month + 1, 0).getDate();
+
+            for (let i = 0; i < firstDay; i++) {
+                grid.innerHTML += `<div class="cal-date"></div>`;
+            }
+
+            for (let d = 1; d <= totalDays; d++) {
+                let activeClass = (d === targetDay && month === targetMonth && year === targetYear) ? 'active' : '';
+                grid.innerHTML += `<div class="cal-date ${activeClass}">${d}</div>`;
+            }
+        }
+
+        function changeMonth(dir) {
+            navDate.setMonth(navDate.getMonth() + dir);
+            renderCalendar();
+        }
+        renderCalendar();
+
+        const eventTime = new Date("Aug 15, 2026 08:30:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = eventTime - now;
+            if (diff > 0) {
+                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+            }
+        }, 1000);
+
+        let wishes = [];
+
+        function addWish() {
+            const name = document.getElementById('wishName').value.trim();
+            const content = document.getElementById('wishContent').value.trim();
+
+            if (name && content) {
+                const now = new Date();
+                const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                
+                wishes.unshift({ name, content, time: timeStr });
+                renderWishes();
+                showToast("Đã gửi lời chúc thành công!");
+
+                document.getElementById('wishName').value = '';
+                document.getElementById('wishContent').value = '';
+            } else {
+                alert('Vui lòng điền tên và nội dung lời chúc!');
+            }
+        }
+
+        function renderWishes() {
+            const list = document.getElementById('wishesList');
+            if (wishes.length > 0) {
+                list.innerHTML = '';
+                wishes.forEach(w => {
+                    list.innerHTML += `
+                        <div class="gb-item">
+                            <div class="gb-item-header">
+                                <span>${escapeHtml(w.name)}</span>
+                                <span>${w.time}</span>
+                            </div>
+                            <p>${escapeHtml(w.content)}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                list.innerHTML = `<div class="empty-text">Chưa có lời chúc nào được gửi.</div>`;
+            }
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
